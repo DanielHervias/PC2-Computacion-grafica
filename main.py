@@ -25,9 +25,9 @@ main_html = """
 
 
       numero = getRndInteger(0, 10);
-      letra = ["U", "N", "I"];
-      random = Math.floor(Math.random() * letra.length);
-      aleatorio = letra[random];
+      figuras = ["X", "O", "Cuadradro", "Triangulo"];
+      random = Math.floor(Math.random() * figuras.length);
+      aleatorio = figuras[random];
 
       document.getElementById('mensaje').innerHTML  = 'Dibujando un ' + aleatorio;
       document.getElementById('numero').value = aleatorio;
@@ -83,8 +83,8 @@ main_html = """
 <body onload="InitThis();">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" ></script>
-    <div align="left">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Uni-logo_transparente_granate.png" width="300"/>
+    <div align="center">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/PSX-DualShock-Controller.jpg/1024px-PSX-DualShock-Controller.jpg" width="300"/>
     </div>
     <div align="center">
         <h1 id="mensaje">Dibujando...</h1>
@@ -130,7 +130,7 @@ def upload():
 @app.route('/prepare', methods=['GET'])
 def prepare_dataset():
     images = []
-    d = ["I","N","U"]
+    d = ["X", "Cuadrado", "Triangulo", "O"]
     digits = []
     for digit in d:
       filelist = glob.glob('{}/*.png'.format(digit))
@@ -145,15 +145,8 @@ def prepare_dataset():
     np.save('y.npy', digits)
     return "OK!"
 
-@app.route('/X.npy', methods=['GET'])
-def download_X():
-    return send_file('./X.npy')
-@app.route('/y.npy', methods=['GET'])
-def download_y():
-    return send_file('./y.npy')
-
 if __name__ == "__main__":
-    digits = ['U', 'N', 'I']
+    digits = ["X", "O", "Cuadrado", "Triangulo"]
     for d in digits:
         if not os.path.exists(str(d)):
             os.mkdir(str(d))
